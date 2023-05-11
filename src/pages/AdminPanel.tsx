@@ -8,13 +8,20 @@ import { ConfigureHalls } from '../components/adminPanel/step2/ConfigureHalls';
 import { ConfigurePrice } from '../components/adminPanel/step3/ConfigurePrice';
 import { FilmSessionsConfiguration } from '../components/adminPanel/step4/FilmSessionsConfiguration';
 import { OpenSale } from '../components/adminPanel/step5/OpenSale';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export const AdminPanel = () => {
   const dispatch = useAppDispatch();
+  const auth = useAuth();
 
   useEffect(() => {
     dispatch(fechAdminPanel());
   }, [dispatch]);
+
+  if (!auth.user?.token) {
+    return <Navigate to='/login' />;
+  }
 
   return (
     <>

@@ -78,7 +78,7 @@ export const FilmSessionsConfiguration = () => {
       date: formatDate(sessionDate),
     };
     setIsSessionLoadind(true);
-    callToServer('film-sessions', queryParams).then((sessions) => {
+    callToServer('admin/film-sessions', queryParams).then((sessions) => {
       setIsSessionLoadind(false);
       setMapedSessions(getMapedData(sessions));
     });

@@ -885,3 +885,21 @@ select {
 .pt-30 {
   padding-top: 30px;
 }
+.page-header__auth {
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-end;
+
+  .name {
+    text-transform: capitalize;
+  }
+
+  .logout {
+    cursor: pointer;
+    color: $white;
+
+    &:hover {
+      color: $green;
+    }
+  }
+}

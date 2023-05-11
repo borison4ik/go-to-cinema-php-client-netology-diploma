@@ -50,3 +50,12 @@ export interface PlaceType {
   type: string;
   name: string;
 }
+
+export interface User {
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+  token?: string;
+}

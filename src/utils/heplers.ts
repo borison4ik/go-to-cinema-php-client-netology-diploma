@@ -22,3 +22,7 @@ export const getfilmColor = (id: number) => {
 export const formatDate = (date: Date): String => {
   return `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
 };
+
+export const getToken = () => {
+  return JSON.parse(localStorage.getItem('user') || '{"token": ""}')?.token;
+};

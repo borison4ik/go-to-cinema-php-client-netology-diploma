@@ -1,11 +1,16 @@
 import { TempHallUpdated } from '../../components/adminPanel/step2/ConfigureHalls';
 import { AdminServerResponce, Film, Hall, HallPlaceTypePrice } from '../../models/IServerResponce';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { getToken } from '../../utils/heplers';
 
 // Административная часть
 // получение данных при инициализации приложени
 export const fechAdminPanel = createAsyncThunk<AdminServerResponce, undefined, { rejectValue: string }>('admin/fechInitSate', async (_, thunkAPI) => {
-  const response = await fetch('http://localhost:8000/api/admin/init');
+  const response = await fetch('http://localhost:8000/api/admin/init', {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
   if (!response.ok) {
     return thunkAPI.rejectWithValue('Что-то пошло не так');
   }

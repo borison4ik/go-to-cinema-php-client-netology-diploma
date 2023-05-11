@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { Header } from '../components/layout/Header';
 import { useAuth } from '../context/AuthContext';
-import { api } from '../API/callToServer';
+import { api, csrf } from '../API/callToServer';
 import { Button } from '../components/common/Button';
 
 export interface SubmitForm {
@@ -38,17 +38,20 @@ export const Register = () => {
       password_confirmation: data.confirmPwd,
     };
     setIsLoading(true);
-    api.get('/sanctum/csrf-cookie').then(() => {
-      api.post('/api/admin/register', obj).then((response) => {
-        if (response.data.error) {
-          console.log('error', response.data.error);
-        } else {
+    csrf.get('sanctum/csrf-cookie').then(() => {
+      api
+        .post('admin/register', obj)
+        .then((response) => {
           auth.logIn(response.data);
-          setIsLoading(false);
           reset();
           navigate('/admin');
-        }
-      });
+        })
+        .catch((err) => {
+          console.log('error', err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     });
   });
 
@@ -122,6 +125,9 @@ export const Register = () => {
                 <Button btnStyle='accent' name='Зарегистрироваться' type='submit' disabled={isLoading} />
               </div>
             </form>
+            <div className='text-center pt-30 fs-16'>
+              <Link to={'/login'}>Авторизоваться</Link>
+            </div>
           </div>
         </section>
       </main>

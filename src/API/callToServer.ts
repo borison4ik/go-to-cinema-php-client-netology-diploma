@@ -1,53 +1,30 @@
 import axios from 'axios';
 import { getToken } from '../utils/heplers';
 
-export const callToServer = async (url: string, param: { [key: string]: String }, method: string = 'GET', body: any = {}) => {
-  let query = '';
-
-  const headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${getToken()}`,
-  };
-
-  let options = {
-    headers,
-    method,
-  };
-
-  if (Object.keys(body).length) {
-    options = Object.assign(options, { body: JSON.stringify(body) });
-  }
-
-  if (Object.keys(param).length) {
-    query += '?';
-
-    Object.entries(param).forEach(([key, value]) => {
-      query += `${key}=${value}`;
-    });
-  }
-
-  const api = axios.create({
-    headers: options.headers,
-    method: options.method,
-    baseURL: process.env.REACT_APP_USER_URL,
-    withCredentials: true,
-  });
-
-  try {
-    const response = await api(`/${url + query}`);
-
-    if (response.data.error) {
-      throw new Error('Ошибка сервера =(');
-    }
-
-    return response.data;
-  } catch (e: ErrorConstructor | any) {
-    console.log(e.message);
-  }
-};
+export const csrf = axios.create({
+  baseURL: 'http://localhost:8000',
+});
 
 export const api = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: process.env.REACT_APP_USER_URL,
   withCredentials: true,
 });
+
+api.interceptors.request.use((request) => {
+  request.headers.Authorization = `Bearer ${getToken()}`;
+  return request;
+});
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    const { response } = error;
+    if (response.status === 401) {
+      localStorage.removeItem('user');
+    }
+
+    throw error;
+  },
+);

@@ -9,7 +9,7 @@ import { SessionList } from './SessionList';
 import { AddFilm } from './AddFilm';
 import { formatDate } from '../../../utils/heplers';
 import { FilmSession } from '../../../models/IServerResponce';
-import { callToServer } from '../../../API/callToServer';
+import { api } from '../../../API/callToServer';
 import { AddFilmSession, SubmitForm } from './AddFilmSession';
 import { Button } from '../../common/Button';
 
@@ -20,12 +20,12 @@ export const FilmSessionsConfiguration = () => {
   const [isSending, setIsSending] = useState(false);
   const [isSessionLoading, setIsSessionLoadind] = useState(false);
 
-  const resetHandler = () => {
-    const queryParams = {
-      date: formatDate(sessionDate),
-    };
+  const resetHandler = async () => {
+    const searchParams = new URLSearchParams();
+    searchParams.append('date', formatDate(sessionDate));
 
-    callToServer('film-sessions', queryParams).then((sessions) => setMapedSessions(getMapedData(sessions)));
+    const response = await api.get('film-sessions', { params: searchParams });
+    setMapedSessions(getMapedData(response.data));
   };
 
   const saveHandler = async () => {
@@ -35,7 +35,7 @@ export const FilmSessionsConfiguration = () => {
       return acc;
     }, []);
     setIsSending(true);
-    await callToServer('film-sessions', {}, 'POST', dataToServer);
+    await api.post('admin/film-sessions', dataToServer);
     setIsSending(false);
   };
 
@@ -74,13 +74,13 @@ export const FilmSessionsConfiguration = () => {
   };
 
   useEffect(() => {
-    const queryParams = {
-      date: formatDate(sessionDate),
-    };
+    const searchParams = new URLSearchParams();
+    searchParams.append('date', formatDate(sessionDate));
+
     setIsSessionLoadind(true);
-    callToServer('admin/film-sessions', queryParams).then((sessions) => {
+    api.get('admin/film-sessions', { params: searchParams }).then((sessions) => {
       setIsSessionLoadind(false);
-      setMapedSessions(getMapedData(sessions));
+      setMapedSessions(getMapedData(sessions.data));
     });
   }, [sessionDate]);
 

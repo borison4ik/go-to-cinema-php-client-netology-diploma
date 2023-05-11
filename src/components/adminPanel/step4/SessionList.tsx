@@ -20,7 +20,7 @@ export const SessionList: React.FC<SessionDateProps> = ({ sessions }) => {
   return (
     <>
       <div className='conf-step__seances'>
-        {Object.entries(sessions).length ? (
+        {Object.entries(films).length && Object.entries(sessions).length ? (
           Object.entries(sessions).map(([key, value]) => (
             <div className='conf-step__seances-hall' key={key}>
               <h3 className='conf-step__seances-title'>{halls[parseInt(key, 10)].name}</h3>

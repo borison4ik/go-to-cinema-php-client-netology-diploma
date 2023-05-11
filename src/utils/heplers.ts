@@ -19,7 +19,7 @@ export const getfilmColor = (id: number) => {
   return '#ffeb85';
 };
 
-export const formatDate = (date: Date): String => {
+export const formatDate = (date: Date): string => {
   return `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1}-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
 };
 

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { Hall } from '../../../models/IServerResponce';
 import { fechUpdateHall } from '../../../store/reducers/ActionCreators';
 import { TempHallUpdated } from '../step2/ConfigureHalls';
+import { Store } from 'react-notifications-component';
 
 export const OpenSale = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +25,19 @@ export const OpenSale = () => {
     const updatedHall: TempHallUpdated = { ...activeHall, enabled: !activeHall.enabled, userPlaces: [] };
     console.log('updatedHall', updatedHall);
 
-    dispatch(fechUpdateHall(updatedHall));
+    dispatch(fechUpdateHall(updatedHall)).then(() => {
+      Store.addNotification({
+        title: 'Ура!',
+        message: 'Изменения сохранены успешно!',
+        type: 'success',
+        insert: 'top',
+        container: 'top-right',
+        dismiss: {
+          duration: 2000,
+          onScreen: true,
+        },
+      });
+    });
   };
 
   useEffect(() => {

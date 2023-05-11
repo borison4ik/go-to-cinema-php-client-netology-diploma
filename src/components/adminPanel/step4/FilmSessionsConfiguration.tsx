@@ -12,6 +12,7 @@ import { FilmSession } from '../../../models/IServerResponce';
 import { api } from '../../../API/callToServer';
 import { AddFilmSession, SubmitForm } from './AddFilmSession';
 import { Button } from '../../common/Button';
+import { Store } from 'react-notifications-component';
 
 export const FilmSessionsConfiguration = () => {
   const { films, isLoading } = useAppSelector((state) => state.filmSlice);
@@ -36,6 +37,17 @@ export const FilmSessionsConfiguration = () => {
     }, []);
     setIsSending(true);
     await api.post('admin/film-sessions', dataToServer);
+    Store.addNotification({
+      title: 'Ура!',
+      message: 'Расписание сохранено успешно!',
+      type: 'success',
+      insert: 'top',
+      container: 'top-right',
+      dismiss: {
+        duration: 2000,
+        onScreen: true,
+      },
+    });
     setIsSending(false);
   };
 

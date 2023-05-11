@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { Store } from 'react-notifications-component';
 
 import { Header } from '../components/layout/Header';
 import { useAuth } from '../context/AuthContext';
@@ -44,7 +45,17 @@ export const Login = () => {
           navigate('/admin');
         })
         .catch((err) => {
-          console.log('error', err);
+          Store.addNotification({
+            title: 'Упс!',
+            message: err.response.data.message || err.response.data.error,
+            type: 'danger',
+            insert: 'top',
+            container: 'top-right',
+            dismiss: {
+              duration: 2000,
+              onScreen: true,
+            },
+          });
         })
         .finally(() => {
           setIsLoading(false);

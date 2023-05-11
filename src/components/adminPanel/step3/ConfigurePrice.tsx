@@ -4,6 +4,7 @@ import { Hall } from '../../../models/IServerResponce';
 import { HallSelector } from '../../common/HallSelector';
 import { fechUpdateHallPrice } from '../../../store/reducers/ActionCreators';
 import { Button } from '../../common/Button';
+import { Store } from 'react-notifications-component';
 
 export const ConfigurePrice = () => {
   const dispatch = useAppDispatch();
@@ -43,7 +44,19 @@ export const ConfigurePrice = () => {
         price: vipPrice,
       });
 
-      dispatch(fechUpdateHallPrice(dataToSave));
+      dispatch(fechUpdateHallPrice(dataToSave)).then(() => {
+        Store.addNotification({
+          title: 'Ура!',
+          message: 'Конфигурация сохнанена успешно!',
+          type: 'success',
+          insert: 'top',
+          container: 'top-right',
+          dismiss: {
+            duration: 2000,
+            onScreen: true,
+          },
+        });
+      });
     }
   };
 

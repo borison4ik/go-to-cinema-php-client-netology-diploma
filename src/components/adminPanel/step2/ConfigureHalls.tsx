@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { InputsSizeHall } from './InputsSizeHall';
 import { fechUpdateHall } from '../../../store/reducers/ActionCreators';
 import { Button } from '../../common/Button';
+import { Store } from 'react-notifications-component';
 
 export interface MatrixItem {
   id: number;
@@ -105,7 +106,19 @@ export const ConfigureHalls = () => {
         userPlaces: getFormatedUserPlaces(),
       };
 
-      dispatch(fechUpdateHall(updatedHall));
+      dispatch(fechUpdateHall(updatedHall)).then(() => {
+        Store.addNotification({
+          title: 'Ура!',
+          message: 'Конфигурация сохнанена успешно!',
+          type: 'success',
+          insert: 'top',
+          container: 'top-right',
+          dismiss: {
+            duration: 2000,
+            onScreen: true,
+          },
+        });
+      });
     }
   };
 

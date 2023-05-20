@@ -2,22 +2,15 @@ import React, { useEffect } from 'react';
 import { Header } from '../components/layout/Header';
 import { StepWrapper } from '../components/adminPanel/StepWrapper/StepWrapper';
 import { HallsNameList } from '../components/adminPanel/step1/HallsNameList';
-import { fechAdminPanel } from '../store/reducers/ActionCreators';
-import { useAppDispatch } from '../hooks/redux';
 import { ConfigureHalls } from '../components/adminPanel/step2/ConfigureHalls';
 import { ConfigurePrice } from '../components/adminPanel/step3/ConfigurePrice';
 import { FilmSessionsConfiguration } from '../components/adminPanel/step4/FilmSessionsConfiguration';
 import { OpenSale } from '../components/adminPanel/step5/OpenSale';
+import { AdministratorLayot } from '../components/layout/AdministratorLayot';
 
 export const AdminPanel = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fechAdminPanel());
-  }, [dispatch]);
-
   return (
-    <>
+    <AdministratorLayot>
       <Header admin={true} />
 
       <main className='conf-steps'>
@@ -41,6 +34,6 @@ export const AdminPanel = () => {
           <OpenSale />
         </StepWrapper>
       </main>
-    </>
+    </AdministratorLayot>
   );
 };

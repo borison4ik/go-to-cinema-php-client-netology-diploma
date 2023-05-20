@@ -18,12 +18,12 @@ export const RequireAuth: React.FC<Props> = ({ children }) => {
       api.get('admin/auth').then((response) => {
         if (response.status === 401) {
           logOut();
-          navigator('/login');
+          navigator('admin/login');
         }
       });
     });
   }, [token]);
 
-  if (!user || !user.token) return <Navigate to='/login' replace />;
+  if (!user || !user.token) return <Navigate to='login' replace />;
   return <>{children}</>;
 };

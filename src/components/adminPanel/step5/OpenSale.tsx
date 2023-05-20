@@ -14,7 +14,6 @@ export const OpenSale = () => {
 
   const setActiveHallHandler = (id: number) => {
     setActiveHall(halls[id]);
-    console.log('id', activeHall);
   };
 
   const saveHandler = () => {
@@ -23,7 +22,6 @@ export const OpenSale = () => {
     }
 
     const updatedHall: TempHallUpdated = { ...activeHall, enabled: !activeHall.enabled, userPlaces: [] };
-    console.log('updatedHall', updatedHall);
 
     dispatch(fechUpdateHall(updatedHall)).then(() => {
       Store.addNotification({

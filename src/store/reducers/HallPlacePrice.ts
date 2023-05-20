@@ -1,6 +1,6 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { HallPlaceTypePrice } from '../../models/IServerResponce';
-import { fechAdminPanel, fechUpdateHallPrice } from './ActionCreators';
+import { fechInitSate, fechUpdateHallPrice } from './ActionCreators';
 
 interface HallInitialState {
   hallPlaceTypePrices: { [key: HallPlaceTypePrice['id']]: HallPlaceTypePrice };
@@ -20,7 +20,7 @@ export const hallPLacePrice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fechAdminPanel.fulfilled, (state, action) => {
+      .addCase(fechInitSate.fulfilled, (state, action) => {
         state.hallPlaceTypePrices = action.payload.hallPlaceTypePrices;
       })
       .addCase(fechUpdateHallPrice.pending, (state) => {

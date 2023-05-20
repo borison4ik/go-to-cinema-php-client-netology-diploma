@@ -7,6 +7,7 @@ import { Header } from '../components/layout/Header';
 import { useAuth } from '../context/AuthContext';
 import { api, csrf } from '../API/callToServer';
 import { Button } from '../components/common/Button';
+import { AdministratorLayot } from '../components/layout/AdministratorLayot';
 
 export interface SubmitForm {
   name: string;
@@ -73,7 +74,7 @@ export const Register = () => {
   }
 
   return (
-    <>
+    <AdministratorLayot>
       <Header admin={true} />
 
       <main>
@@ -137,11 +138,11 @@ export const Register = () => {
               </div>
             </form>
             <div className='text-center pt-30 fs-16'>
-              <Link to={'/login'}>Авторизоваться</Link>
+              <Link to={'/admin/login'}>Авторизоваться</Link>
             </div>
           </div>
         </section>
       </main>
-    </>
+    </AdministratorLayot>
   );
 };

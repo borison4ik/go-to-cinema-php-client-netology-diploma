@@ -90,7 +90,7 @@ export const FilmSessionsConfiguration = () => {
     searchParams.append('date', formatDate(sessionDate));
 
     setIsSessionLoadind(true);
-    api.get('admin/film-sessions', { params: searchParams }).then((sessions) => {
+    api.get('film-sessions', { params: searchParams }).then((sessions) => {
       setIsSessionLoadind(false);
       setMapedSessions(getMapedData(sessions.data));
     });

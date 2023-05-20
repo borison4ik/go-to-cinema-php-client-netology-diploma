@@ -21,6 +21,13 @@ export interface Film {
   image: string;
 }
 
+export interface Ticket {
+  id: number;
+  user_place_id: number;
+  film_session_id: number;
+  qr_code_id: number;
+}
+
 export interface HallPlaceTypePrice {
   id: number;
   hall_id: number;
@@ -34,6 +41,8 @@ export interface UserPlace {
   place_number: number;
   hall_id: number;
   place_type_id: number;
+  isSelected?: boolean;
+  isTaken?: boolean;
 }
 
 export interface Hall {

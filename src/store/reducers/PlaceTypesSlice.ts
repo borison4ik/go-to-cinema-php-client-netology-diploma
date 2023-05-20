@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { PlaceType } from '../../models/IServerResponce';
-import { fechAdminPanel } from './ActionCreators';
+import { fechInitSate } from './ActionCreators';
 
 interface PlaceTypesInitialState {
   place_types: { [key: PlaceType['id']]: PlaceType };
@@ -15,7 +15,7 @@ export const PlaceTypesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fechAdminPanel.fulfilled, (state, action) => {
+    builder.addCase(fechInitSate.fulfilled, (state, action) => {
       state.place_types = action.payload.place_types;
     });
   },

@@ -1,6 +1,6 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { FilmSession } from '../../models/IServerResponce';
-import { fechAdminPanel } from './ActionCreators';
+import { fechAllSessionForDay } from './ActionCreators';
 
 interface SessionFilmInitialState {
   filmSessions: { [key: FilmSession['id']]: FilmSession };
@@ -16,18 +16,18 @@ const initialState: SessionFilmInitialState = {
   error: null,
 };
 
-export const sessionFilmSlice = createSlice({
-  name: 'sessions',
+export const sessionFilmForDateSlice = createSlice({
+  name: 'sessionFilmForDateSlice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fechAdminPanel.pending, (state) => {
+      .addCase(fechAllSessionForDay.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fechAdminPanel.fulfilled, (state, action) => {
+      .addCase(fechAllSessionForDay.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.filmSessions = action.payload.film_sessions;
+        state.filmSessions = action.payload;
         state.error = null;
       })
       .addMatcher(isError, (state, action: PayloadAction<string>) => {
@@ -37,7 +37,7 @@ export const sessionFilmSlice = createSlice({
   },
 });
 
-export default sessionFilmSlice.reducer;
+export default sessionFilmForDateSlice.reducer;
 
 function isError(action: AnyAction) {
   return action.type.endsWith('rejected');

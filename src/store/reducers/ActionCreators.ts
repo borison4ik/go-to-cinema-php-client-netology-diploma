@@ -1,11 +1,11 @@
 import { TempHallUpdated } from '../../components/adminPanel/step2/ConfigureHalls';
-import { AdminServerResponce, Film, Hall, HallPlaceTypePrice } from '../../models/IServerResponce';
+import { AdminServerResponce, Film, FilmSession, Hall, HallPlaceTypePrice } from '../../models/IServerResponce';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../API/callToServer';
 
 // Административная часть
 // получение данных при инициализации приложени
-export const fechAdminPanel = createAsyncThunk<AdminServerResponce, undefined, { rejectValue: string }>('admin/fechInitSate', async (_, thunkAPI) => {
+export const fechInitSate = createAsyncThunk<AdminServerResponce, undefined, { rejectValue: string }>('admin/fechInitSate', async (_, thunkAPI) => {
   try {
     const response = await api.get('admin/init');
 
@@ -101,6 +101,42 @@ export const fechAddFilm = createAsyncThunk<Film, FormData, { rejectValue: strin
 export const fechDeleteFilm = createAsyncThunk<{ id: number }, number, { rejectValue: string }>('admin/fechDeleteFilm', async (id, thunkAPI) => {
   try {
     const response = await api.delete(`admin/films/${id}`);
+
+    if (response.data.error) {
+      throw new Error(response.data.error);
+    }
+
+    return response.data;
+  } catch (e: ErrorConstructor | any) {
+    thunkAPI.rejectWithValue('Что-то пошло не так');
+  }
+});
+
+// Получение всех сеансов на текущую дату для клиента
+export const fechAllSessionForDay = createAsyncThunk<{ [key: FilmSession['id']]: FilmSession }, string, { rejectValue: string }>(
+  'fechAllSessionForDay',
+  async (filterDateString, thunkAPI) => {
+    try {
+      const searchParams = new URLSearchParams();
+      searchParams.append('date', filterDateString);
+
+      const response = await api.get(`film-sessions`, { params: searchParams });
+
+      if (response.data.error) {
+        throw new Error(response.data.error);
+      }
+
+      return response.data;
+    } catch (e: ErrorConstructor | any) {
+      thunkAPI.rejectWithValue('Что-то пошло не так');
+    }
+  },
+);
+
+// Получение выбранного сеанса по ID
+export const fechSessionForDay = createAsyncThunk<FilmSession, number, { rejectValue: string }>('fechSessionForDay', async (sessionId, thunkAPI) => {
+  try {
+    const response = await api.get(`film-sessions/${sessionId}`);
 
     if (response.data.error) {
       throw new Error(response.data.error);

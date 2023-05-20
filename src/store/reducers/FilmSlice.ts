@@ -1,6 +1,6 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Film } from '../../models/IServerResponce';
-import { fechAddFilm, fechAdminPanel, fechDeleteFilm } from './ActionCreators';
+import { fechAddFilm, fechInitSate, fechDeleteFilm } from './ActionCreators';
 
 interface FilmInitialState {
   films: { [key: Film['id']]: Film };
@@ -22,10 +22,10 @@ export const filmSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fechAdminPanel.pending, (state) => {
+      .addCase(fechInitSate.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fechAdminPanel.fulfilled, (state, action) => {
+      .addCase(fechInitSate.fulfilled, (state, action) => {
         state.isLoading = false;
         state.films = action.payload.films;
         state.error = null;

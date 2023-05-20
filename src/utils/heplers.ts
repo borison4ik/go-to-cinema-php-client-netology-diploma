@@ -26,3 +26,7 @@ export const formatDate = (date: Date): string => {
 export const getToken = () => {
   return JSON.parse(localStorage.getItem('user') || '{"token": ""}')?.token;
 };
+
+export const capitalize = (str: string): string => {
+  return str.replace(/(^|\s)\S/g, (l) => l.toUpperCase());
+};

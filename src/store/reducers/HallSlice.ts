@@ -1,6 +1,6 @@
 import { AnyAction, PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Hall } from '../../models/IServerResponce';
-import { fechAddHall, fechAdminPanel, fechDeleteHall, fechUpdateHall } from './ActionCreators';
+import { fechAddHall, fechInitSate, fechDeleteHall, fechUpdateHall } from './ActionCreators';
 
 interface HallInitialState {
   halls: { [key: Hall['id']]: Hall };
@@ -22,10 +22,10 @@ export const hallSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fechAdminPanel.pending, (state) => {
+      .addCase(fechInitSate.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fechAdminPanel.fulfilled, (state, action) => {
+      .addCase(fechInitSate.fulfilled, (state, action) => {
         state.isLoading = false;
         state.halls = action.payload.halls;
         state.error = null;

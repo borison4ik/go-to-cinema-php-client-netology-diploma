@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
 import cn from 'classnames';
 
-import { capitalize } from '../../utils/heplers';
+import { capitalize } from '../../utils/helpers';
 
 import 'moment/locale/ru';
 

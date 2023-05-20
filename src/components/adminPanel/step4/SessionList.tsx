@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FilmSession } from '../../../models/IServerResponce';
 import { useAppSelector } from '../../../hooks/redux';
-import { formatTime, getStartTime, getfilmColor } from '../../../utils/heplers';
+import { formatTime, getStartTime, getfilmColor } from '../../../utils/helpers';
 
 interface SessionDateProps {
   sessions: { [key: number]: FilmSession[] };

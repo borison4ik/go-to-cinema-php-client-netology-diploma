@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { FilmsList } from './FilmsList';
 import { SessionList } from './SessionList';
 import { AddFilm } from './AddFilm';
-import { formatDate } from '../../../utils/heplers';
+import { formatDate } from '../../../utils/helpers';
 import { FilmSession } from '../../../models/IServerResponce';
 import { api } from '../../../API/callToServer';
 import { AddFilmSession, SubmitForm } from './AddFilmSession';

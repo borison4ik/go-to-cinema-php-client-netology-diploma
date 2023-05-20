@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from '../utils/heplers';
+import { getToken } from '../utils/helpers';
 
 export const csrf = axios.create({
   baseURL: 'http://localhost:8000',

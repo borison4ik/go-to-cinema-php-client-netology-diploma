@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { api, csrf } from '../../API/callToServer';
-import { getToken } from '../../utils/heplers';
+import { getToken } from '../../utils/helpers';
 
 type Props = {
   children: JSX.Element;

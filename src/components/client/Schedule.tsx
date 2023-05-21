@@ -56,9 +56,11 @@ export const Schedule: React.FC<ScheduleProps> = ({ chosenMoment }) => {
   return (
     <>
       {!list.length ? (
-        <section className='movie empty-sessions'>
-          <h2>На выбранную вами дату в нашем кинотеатре нет сеансов</h2>
-          <p>Пожалуйста попробуйте выбрать другую дату</p>
+        <section className='movie'>
+          <div className='empty'>
+            <h2>На выбранную вами дату в нашем кинотеатре нет сеансов</h2>
+            <p>Пожалуйста попробуйте выбрать другую дату</p>
+          </div>
         </section>
       ) : (
         list.map((listItem) => (

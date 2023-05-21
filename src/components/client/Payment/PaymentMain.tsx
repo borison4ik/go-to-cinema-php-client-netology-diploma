@@ -5,6 +5,7 @@ import moment from 'moment';
 import { api } from '../../../API/callToServer';
 import { Store } from 'react-notifications-component';
 import { clientTicketsSlice } from '../../../store/reducers/ClientTicketsSlice';
+import { selectedClientPlacesSlice } from '../../../store/reducers/SelectedClientPlacesSlice';
 
 export const PaymentMain = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export const PaymentMain = () => {
   const { halls } = useAppSelector((state) => state.hallReducer);
   const { films } = useAppSelector((state) => state.filmSlice);
   const { add } = clientTicketsSlice.actions;
+  const { reset } = selectedClientPlacesSlice.actions;
 
   const countPrice = () => {
     const price = selectedPlaces.reduce((acc, place) => {
@@ -51,6 +53,7 @@ export const PaymentMain = () => {
               onScreen: true,
             },
             onRemoval: () => {
+              dispatch(reset());
               navigate(`/order/${sessionId}/`, { replace: true, state: true });
             },
           });
@@ -74,7 +77,7 @@ export const PaymentMain = () => {
           <p className='ticket__info'>
             Места:{' '}
             <span className='ticket__details ticket__chairs'>
-              {[...selectedPlaces].reverse().map((place) => (
+              {selectedPlaces.map((place) => (
                 <span key={place.id} className='ticket__chairs-item'>
                   место:&nbsp;<span className='ticket__chairs-place'>{place.place_number}</span>&nbsp;&nbsp;ряд:&nbsp;
                   <span className='ticket__chairs-row'>{place.place_row}</span>

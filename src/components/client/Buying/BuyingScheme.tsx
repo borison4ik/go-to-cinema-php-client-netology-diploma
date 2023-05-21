@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { FilmSession, PlaceType, Ticket, UserPlace } from '../../../models/IServerResponce';
+import { FilmSession, Ticket, UserPlace } from '../../../models/IServerResponce';
 import { selectedClientPlacesSlice } from '../../../store/reducers/SelectedClientPlacesSlice';
 import { CLIENT_PLACE_TYPES } from '../../../models/constants';
 
@@ -19,7 +19,7 @@ export const BuyingScheme: React.FC<BuyingSchemeProps> = ({ session, tickets }) 
   const { halls } = useAppSelector((state) => state.hallReducer);
   const { place_types } = useAppSelector((state) => state.placeTypesSlice);
   const [matrix, setMatrix] = useState<MatrixClienHallItem[]>([]);
-  const { add, remove } = selectedClientPlacesSlice.actions;
+  const { add, remove, reset } = selectedClientPlacesSlice.actions;
 
   const HALL = halls[session.hall_id];
 
@@ -88,6 +88,7 @@ export const BuyingScheme: React.FC<BuyingSchemeProps> = ({ session, tickets }) 
   };
 
   useEffect(() => {
+    dispatch(reset());
     setMatrix(getMatrix());
   }, []);
 

@@ -7,7 +7,7 @@ import { api } from '../../API/callToServer';
 // получение данных при инициализации приложени
 export const fechInitSate = createAsyncThunk<AdminServerResponce, undefined, { rejectValue: string }>('admin/fechInitSate', async (_, thunkAPI) => {
   try {
-    const response = await api.get('admin/init');
+    const response = await api.get('init');
 
     if (response.data.error) {
       throw new Error(response.data.error);
